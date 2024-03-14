@@ -8,3 +8,5 @@ export * from './card/CardStudent'
 
 export * from './button/button' 
 export * from './button/ButtonConnect'
+
+export * from './toastify/toaster'

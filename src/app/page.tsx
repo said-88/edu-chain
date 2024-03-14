@@ -1,9 +1,11 @@
 "use client";
+import { LightNodeProvider } from "@waku/react";
 import { Alert, CardStudent, Button} from "@/components/ui";
 import { useState } from "react";
 
 
 export default function Home() {
+  const NODE_OPTIONS = { defaultBootstrap: true };
   const [showCard, setShowCard] = useState(false);
 
   const handleClick = () => {
@@ -11,6 +13,7 @@ export default function Home() {
   };
 
   return (
+    <LightNodeProvider options={NODE_OPTIONS}>
       <main className="bg-slate-100 flex min-h-screen flex-col items-center justify-between p-24">
         {/* <Alert /> */}
         <h1 className="text-6xl">EDU CHAIN</h1>
@@ -30,5 +33,6 @@ export default function Home() {
         />}
         </div>
       </main>
+    </LightNodeProvider>
   );
 }
