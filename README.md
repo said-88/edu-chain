@@ -1,5 +1,22 @@
 
-Deploy en Scroll del Smart Contract con las partes de Estudiante postulado a Beca, Institución Educativa, Auditor Externo, Profesores que pueden Atestar en favor del estudiante Ethereum Attestation Service (EAS): https://sepolia.scrollscan.dev/address/0x4BB5C4104dE2Ef2ebDb1A3dFD57d2e5ab2C3B85d
+
+EDUCHAIN es un proyecto de impacto social que tiene como objetivo proporcionar becas a estudiantes de excelencia académica con ingresos limitados. Nuestra misión es permitir que estos estudiantes cambien sus vidas a través del apoyo de ecosistemas descentralizados.
+
+**Ethereum Attestation Service (EAS) implementado en EDUCHAIN** con Despliegue en** Scroll** 
+para controlar la transparencia de los estudiantes postulados para obtener Becas autenticando la Institución Educativa, Auditores Externos, Profesores que pueden Atestar en favor del estudiante 
+**Contrato desplegado y Verificado en Scroll:**
+https://sepolia.scrollscan.com/address/0x4BB5C4104dE2Ef2ebDb1A3dFD57d2e5ab2C3B85d#code
+Address del Contrato EDUCHAIN_EAS: 0x4BB5C4104dE2Ef2ebDb1A3dFD57d2e5ab2C3B85d
+
+**Chainlink utilizando CCIP implementado en EDUCHAIN** con el objetivo de recibir donaciones de diferentes chains que permitan patrocinar a los estudiantes becados, dichos fondos serán canalizados a la Universidad de destino que esté dentro del convenio y acuerdos de compromiso para garantizar su uso exclusivamente para los fines de cubrir la beca.
+**Desplegado y Verificado en Scroll**
+https://sepolia.scrollscan.com/address/0x5aF9811899C401DD86F38C81aA256304fabaC690#code
+Address del Contrato CCIP Beca Educhain: 0x5aF9811899C401DD86F38C81aA256304fabaC690
+
+**Near -> MetaPool implementado en EDUCHAIN**  Con el objetivo de alcanzar la autosostenibilidad, buscamos que los fondos recaudados para becas puedan transferirse usando MetaPool para lograr márgenes de crecimiento que se reinviertan en el programa de Becas evitando así la dependencia absoluta de donaciones.
+**Contrato Verificado en Scroll:**
+https://sepolia.scrollscan.com/address/0xF1dB8504B2a84d83deB0b6c716c073a0d7208365#code
+Address del Contrato Metapool Educhain crecimiento fondos : 0xF1dB8504B2a84d83deB0b6c716c073a0d7208365
 
 
 
