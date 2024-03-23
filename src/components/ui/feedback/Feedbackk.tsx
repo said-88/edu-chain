@@ -11,7 +11,7 @@ interface Props {
 export const Feedbackk = () => {
     const [inputMessage, setInputMessage] = useState("");
     
-    const { node, error, isLoading } = useWaku<LightNode>();
+    const { node, error, isLoading } = useWaku();
     
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputMessage(e.target.value);

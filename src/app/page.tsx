@@ -1,5 +1,6 @@
 "use client";
 import { LightNodeProvider } from "@waku/react";
+import { Protocols } from "@waku/sdk";
 import { CardStudent, Button, Toastify} from "@/components/ui";
 import { useEffect, useState } from "react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
@@ -9,7 +10,7 @@ import { Feedbackk } from '../components/ui/feedback/Feedbackk';
 export default function Home() {
   const NODE_OPTIONS = { defaultBootstrap: true };
   const [showCard, setShowCard] = useState(false);
-  const [indic, setIndice] = useState<number>(90);
+  const [indic, setIndice] = useState<number>(91);
   const [showToastify, setShowToastify] = useState<boolean>(false);
   
   const handleClick = () => {
@@ -28,11 +29,15 @@ export default function Home() {
   }, [indic]);
 
   return (
-    <LightNodeProvider options={NODE_OPTIONS}>
-      <main className="bg-slate-100 flex min-h-screen flex-col items-center justify-between p-24">
+    <LightNodeProvider options={NODE_OPTIONS}
+      protocols={[Protocols.LightPush]}
+    >
+      <main className="bg-slate-100 min-h-screen flex flex-col items-center justify-between p-24">
         {showToastify && <Toastify />}
-        <ConnectButton />
-        <h1 className="text-6xl">EDU CHAIN</h1>
+        <div className="flex justify-end">
+          <ConnectButton />
+        </div>
+        <h1 className="text-6xl">EduChain</h1>
         <Button 
           onClick={() => handleClick()}
           variant="outline"

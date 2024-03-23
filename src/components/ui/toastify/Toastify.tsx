@@ -1,24 +1,17 @@
 "use client";
-import { Button } from '@/components/ui'
 import { useToast } from "@/components/ui/use-toast"
-import { useWaku, useLightPush, useFilterMessages } from "@waku/react";
-import { useState, useEffect } from 'react';
-import { createEncoder, createDecoder } from "@waku/sdk";
+import { useWaku, useLightPush, useFilterMessages, useContentPair } from "@waku/react";
+import { useState, useEffect, use } from 'react';
+import { createEncoder, createDecoder, createLightNode, waitForRemotePeer } from "@waku/sdk";
 import protobuf from 'protobufjs';
 
 export const Toastify = () => {
     const { toast } = useToast();
 
-    const { node, error, isLoading } = useWaku();
-    // const [inputMessage, setInputMessage] = useState("");
-    
-    
-    // const handleInputChange = (e) => {
-      //     setInputMessage(e.target.value);
-      // };
-      
-      const contentTopic = "/waku-react-guide/1/toast/proto";
-      const encoder = createEncoder({ contentTopic });
+    const { node } = useWaku();
+
+      const contentTopic = "/educhain/1/toast/proto";
+      const encoder = createEncoder({ contentTopic, ephemeral: true});
       const decoder = createDecoder(contentTopic);
       
       const NotificationMessage = new protobuf.Type("NotificationMessage")
@@ -28,9 +21,9 @@ export const Toastify = () => {
       
       const { push } = useLightPush({ node, encoder });
       const { messages: filterMessages } = useFilterMessages({ node, decoder });
-      const [messages, setMessages] = useState([]);
 
       const sendMessage = async () => {
+        if (!node) return;
         if (!push) return;
         const timestamp = Date.now();
         const title = "¡¡¡Felicidades!!!";
@@ -41,7 +34,7 @@ export const Toastify = () => {
           description
         });
         const payload = NotificationMessage.encode(protoMessage).finish();
-        const { recipients, errors = [] } = await push({ payload });
+        const { errors = [] } = await push({ payload });
         if (errors.length === 0) {
           console.log("MESSAGE PUSHED");
         } else {
@@ -49,22 +42,55 @@ export const Toastify = () => {
         }
       }
 
-    // useEffect(() => {
-    //     setMessages(filterMessages.map((wakuMessage) => {
-    //         if (!wakuMessage.payload) return;
-    //         return ChatMessage.decode(wakuMessage.payload);
-    //     }));
-    // }, [filterMessages]);
+      const decodeMessage = (msg) => {
+        if (!msg.payload) return;
+        const {timestamp, title, description} = NotificationMessage.decode(msg.payload);
+        if (!timestamp || !title || !description) return;
 
-    useEffect(() => {
-      
-      messages.forEach(message => {
-        toast({
-          title: message.title,
-          description: message.description,
+        const time = new Date();
+        time.setTime(Number(timestamp));
+
+        return {
+          timestamp: time,
+          title,
+          description
+        };
+      } 
+
+      useEffect(() => {
+        if (node !== undefined) {
+          sendMessage();
+        }
+      }, [node]);
+
+      useEffect(() => {
+        filterMessages.forEach((msg) => {
+          const message = decodeMessage(msg);
+          console.log("Message received:", message);
+          if (message) {
+            toast({
+              title: message.title,
+              description: message.description
+            });
+          }
         });
-      });
-    }, [messages, toast]);
+      }, [filterMessages, toast]);
+
+      // useEffect(() => {
+      //   setMessages(filterMessages.map((wakuMessage) => {
+      //     if (!wakuMessage.payload) return;
+      //     return NotificationMessage.decode(wakuMessage.payload);
+      // }));
+      // }, [filterMessages]);
+    
+    //  useEffect(() => {
+    //    messages.forEach(message => {
+    //      toast({
+    //        title: message.title,
+    //       description: message.description,
+    //      });
+    //    });
+    //  }, [messages, toast]);
 
   return <></>
 }
