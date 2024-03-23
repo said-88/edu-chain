@@ -10,3 +10,4 @@ export * from './button/button'
 export * from './button/ButtonConnect'
 
 export * from './toastify/toaster'
+export * from './toastify/Toastify'
