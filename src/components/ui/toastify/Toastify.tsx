@@ -1,9 +1,9 @@
 "use client";
+import { useEffect} from 'react';
 import { useToast } from "@/components/ui/use-toast"
-import { useWaku, useLightPush, useFilterMessages, useContentPair } from "@waku/react";
-import { useState, useEffect, use } from 'react';
-import { createEncoder, createDecoder, createLightNode, waitForRemotePeer } from "@waku/sdk";
-import protobuf from 'protobufjs';
+import { useWaku, useLightPush, useFilterMessages} from "@waku/react";
+import { createEncoder, createDecoder} from "@waku/sdk";
+import { NotificationMessage } from "@/types";
 
 export const Toastify = () => {
     const { toast } = useToast();
@@ -13,11 +13,6 @@ export const Toastify = () => {
       const contentTopic = "/educhain/1/toast/proto";
       const encoder = createEncoder({ contentTopic, ephemeral: true});
       const decoder = createDecoder(contentTopic);
-      
-      const NotificationMessage = new protobuf.Type("NotificationMessage")
-      .add(new protobuf.Field("timestamp", 1, "uint64"))
-      .add(new protobuf.Field("title", 2, "string"))
-      .add(new protobuf.Field("description", 3, "string"));
       
       const { push } = useLightPush({ node, encoder });
       const { messages: filterMessages } = useFilterMessages({ node, decoder });
@@ -51,9 +46,9 @@ export const Toastify = () => {
         time.setTime(Number(timestamp));
 
         return {
-          timestamp: time,
           title,
-          description
+          description,
+          timestamp: time
         };
       } 
 
@@ -75,22 +70,6 @@ export const Toastify = () => {
           }
         });
       }, [filterMessages, toast]);
-
-      // useEffect(() => {
-      //   setMessages(filterMessages.map((wakuMessage) => {
-      //     if (!wakuMessage.payload) return;
-      //     return NotificationMessage.decode(wakuMessage.payload);
-      // }));
-      // }, [filterMessages]);
-    
-    //  useEffect(() => {
-    //    messages.forEach(message => {
-    //      toast({
-    //        title: message.title,
-    //       description: message.description,
-    //      });
-    //    });
-    //  }, [messages, toast]);
 
   return <></>
 }

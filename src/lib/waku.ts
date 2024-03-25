@@ -5,13 +5,12 @@ import { Protocols } from "@waku/interfaces";
 import { waitForRemotePeer, createLightNode, createDecoder, createEncoder, LightNode } from '@waku/sdk';
 import { bytesToHex, hexToBytes } from "@waku/utils/bytes";
 import type { DecodedMessage } from "@waku/message-encryption";
-import { NotificationMessage } from "@/types";
+import { FeedbackMessage, NotificationMessage } from "@/types";
 
 export const PublicKeyContentTopic = "/eth-pm/1/public-key/proto";
 export const PrivateMessageContentTopic = "/eth-pm/1/private-message/proto";
 
 export const contentTopic = "/educhain/1/toast/proto";
-
 const encoder = createEncoder({ contentTopic, ephemeral: true });
 const decoder = createDecoder(contentTopic);
 
@@ -49,6 +48,39 @@ export const subscribeNotification = async (node: LightNode, callback: any) => {
     
     const notificationObj = NotificationMessage.decode(msg.payload);
     console.log("Notification received:", notificationObj);
+  };
+  // Create a Filter subscription
+  const subscription = await node.filter.createSubscription();
+  // Subscribe to content topics and process new message
+  await subscription.subscribe([decoder], _callback);
+}
+
+// pushFeedback
+export const pushFeedback = async (node: LightNode, title: string, content: string) => {
+  // Create a Feedback Message
+  const protoMessage = FeedbackMessage.create({
+    timestamp: Date.now(),
+    title,
+    content
+  });
+
+  // Encode the message
+  const serializedMessage = FeedbackMessage.encode(protoMessage).finish();
+
+  // Push the message
+  await node.lightPush.send(encoder, { payload: serializedMessage });
+}
+
+// suscribeFeedback
+export const subscribeFeedback = async (node: LightNode, callback: any) => {
+  
+  // What to do with the message
+  const _callback = async (msg: DecodedMessage) => {
+    if (!msg.payload) return;
+    console.log("Message received:", msg);
+    
+    const feedbackObj = FeedbackMessage.decode(msg.payload);
+    console.log("Feedback received:", feedbackObj);
   };
   // Create a Filter subscription
   const subscription = await node.filter.createSubscription();

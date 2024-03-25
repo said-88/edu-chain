@@ -1,10 +1,8 @@
 "use client";
 import { LightNodeProvider } from "@waku/react";
-import { Protocols } from "@waku/sdk";
-import { CardStudent, Button, Toastify} from "@/components/ui";
+import { Protocols } from "@waku/sdk"; 
+import { CardStudent, Button, Toastify, Feedback, Navbar } from "@/components/ui";
 import { useEffect, useState } from "react";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { Feedbackk } from '../components/ui/feedback/Feedbackk';
 
 
 export default function Home() {
@@ -32,29 +30,26 @@ export default function Home() {
     <LightNodeProvider options={NODE_OPTIONS}
       protocols={[Protocols.LightPush]}
     >
-      <main className="bg-slate-100 min-h-screen flex flex-col items-center justify-between p-24">
-        {showToastify && <Toastify />}
-        <div className="flex justify-end">
-          <ConnectButton />
-        </div>
-        <h1 className="text-6xl">EduChain</h1>
+      {showToastify && <Toastify />}
+      <Navbar />
+      <main className="container min-h-screen flex flex-col items-center justify-between">
+        <h1 className="text-6xl font-extrabold m-2 pt-3">EduChain</h1>
         <Button 
           onClick={() => handleClick()}
           variant="outline"
-          className="mt-3"
         >
           Connect
         </Button>
-        <div className="mt-3">
+        <div className="m-4">
         { showCard && 
         <CardStudent
-          address="0x1234567890"
+          address="0x1234567890abcdef1234567890abcdef12345678"
           nombre="Daniel" 
           indice={90}
         />}
         </div>
-       {/* <Feedbackk /> */}
-      </main>
+        <Feedback/>
+      </main>  
     </LightNodeProvider>
   );
 }

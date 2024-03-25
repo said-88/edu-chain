@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Toaster } from "@/components/ui";
+import { Toaster, ThemeProvider } from "@/components/ui";
 import { Inter } from "next/font/google";
 import { Providers } from "./providers";
 import "./globals.css";
@@ -19,8 +19,15 @@ export default function RootLayout({
   return (
       <html lang="en">
         <body className={inter.className}>
-         <Providers>{children}</Providers>
-         <Toaster />
+          <ThemeProvider
+           attribute="class"
+           defaultTheme="system"
+           enableSystem
+           disableTransitionOnChange
+          >
+            <Providers>{children}</Providers>
+            <Toaster />
+         </ThemeProvider>
         </body>
        
       </html>

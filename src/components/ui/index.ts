@@ -1,5 +1,3 @@
-
-
 export * from './navbar/Navbar'
 export * from './alert-dialog/alert-dialog'
 export * from './alert-dialog/Alert'
@@ -8,6 +6,17 @@ export * from './card/CardStudent'
 
 export * from './button/button' 
 export * from './button/ButtonConnect'
+export * from './select/select'
+export * from './input/input'
+export * from './textarea/textarea'
+export * from './label/label'
+export * from './tooltip/tooltip'
+export * from './badge/badge'
+export * from './drawer/drawer'
+export * from './theme/theme-toggle'
+export * from './theme/theme-provider'
 
+export * from './feedback/retrieve-feed'
+export * from './feedback/feedback'
 export * from './toastify/toaster'
 export * from './toastify/Toastify'
