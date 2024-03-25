@@ -1,4 +1,4 @@
-
+**Sitio interativo de EDUCHAIN para revisión del Proyecto:**  https://bit.ly/EDUCHAIN-PROJECT
 
 **EDUCHAIN** es un proyecto de impacto social que tiene como objetivo proporcionar becas a estudiantes de excelencia académica con ingresos limitados. Nuestra misión es permitir que estos estudiantes con un enorme potencial puedan cambiar el rumbo de sus vidas a través del apoyo de ecosistemas descentralizados, que desde muy jóvenes tenga la experiencia de crear su Wallet y de interactuar con Blockchains, a su vez buscar que las instituciones educativas de nivel secundario y superior interactuen de manera cotidiana smart contracts en la web3 para que de forma implícita se vuelvan catalizadores de su uso desde el ámbito formativo.
 
